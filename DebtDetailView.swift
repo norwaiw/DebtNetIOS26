@@ -4,7 +4,7 @@ struct DebtDetailView: View {
     let debt: Debt
     @EnvironmentObject var debtStore: DebtStore
     @EnvironmentObject var themeManager: ThemeManager
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @State private var showingEditDebt = false
     @State private var showingDeleteAlert = false
     @State private var showingStatusChangeAlert = false
@@ -61,7 +61,7 @@ struct DebtDetailView: View {
             Button("Отмена", role: .cancel) { }
             Button("Удалить", role: .destructive) {
                 debtStore.deleteDebt(currentDebt)
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
         } message: {
             Text("Вы уверены, что хотите удалить долг от \(currentDebt.debtorName) на сумму \(currentDebt.formattedAmount)?")
@@ -111,7 +111,7 @@ struct DebtDetailView: View {
         VStack(spacing: 16) {
             HStack {
                 Button(action: {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .foregroundColor(themeManager.primaryTextColor)

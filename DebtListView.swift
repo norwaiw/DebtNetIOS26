@@ -47,20 +47,22 @@ struct DebtListView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                themeManager.backgroundColor.ignoresSafeArea()
-                mainContentView
-            }
-            .navigationBarHidden(true)
+        ZStack {
+            themeManager.backgroundColor.ignoresSafeArea()
+            mainContentView
         }
+        .toolbar(.hidden, for: .navigationBar)
         .sheet(isPresented: $showingAddDebt) {
             AddDebtView()
                 .environmentObject(themeManager)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showingNotificationSettings) {
             NotificationSettingsView()
                 .environmentObject(themeManager)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
         }
         .onAppear { updateVisibleDebts() }
         .onChange(of: selectedFilter) { updateVisibleDebts() }

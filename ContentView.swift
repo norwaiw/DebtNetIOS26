@@ -6,6 +6,7 @@ struct ContentView: View {
     @State private var selectedTab = 0
     
     var body: some View {
+        NavigationStack {
         ZStack {
             themeManager.backgroundColor.ignoresSafeArea()
             
@@ -84,6 +85,7 @@ struct ContentView: View {
                     alignment: .top
                 )
             }
+        }
         }
     }
 }
@@ -189,6 +191,8 @@ struct SettingsView: View {
         .sheet(isPresented: $showingNotificationSettings) {
             NotificationSettingsView()
                 .environmentObject(themeManager)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
         }
     }
 }
