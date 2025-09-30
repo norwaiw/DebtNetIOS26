@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AddDebtView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var debtStore: DebtStore
     @EnvironmentObject var themeManager: ThemeManager
     
@@ -20,7 +20,7 @@ struct AddDebtView: View {
     @State private var keyboardHeight: CGFloat = 0
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             GeometryReader { geometry in
                 ZStack {
                     themeManager.backgroundColor.ignoresSafeArea()
@@ -31,7 +31,7 @@ struct AddDebtView: View {
                             HStack {
                                 Button("Отмена") {
                                     hideKeyboard()
-                                    presentationMode.wrappedValue.dismiss()
+                                    dismiss()
                                 }
                                 .foregroundColor(themeManager.secondaryTextColor)
                                 
@@ -301,7 +301,7 @@ struct AddDebtView: View {
         )
         
         debtStore.addDebt(newDebt)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
 }
 

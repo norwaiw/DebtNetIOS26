@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EditDebtView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var debtStore: DebtStore
     @EnvironmentObject var themeManager: ThemeManager
     
@@ -35,7 +35,7 @@ struct EditDebtView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             GeometryReader { geometry in
                 ZStack {
                     themeManager.backgroundColor.ignoresSafeArea()
@@ -46,7 +46,7 @@ struct EditDebtView: View {
                             HStack {
                                 Button("Отмена") {
                                     hideKeyboard()
-                                    presentationMode.wrappedValue.dismiss()
+                                    dismiss()
                                 }
                                 .foregroundColor(themeManager.secondaryTextColor)
                                 
@@ -318,7 +318,7 @@ struct EditDebtView: View {
         updatedDebt.interestRate = interestRateValue
         
         debtStore.updateDebt(updatedDebt)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
 }
 
